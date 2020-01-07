@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    buildToolsVersion "28.0.3"
     resourcePrefix "refresh"
 
     defaultConfig {
@@ -31,7 +32,9 @@ apply plugin: 'com.jfrog.bintray'
 version = "1.2.0"
 def siteUrl = 'https://github.com/baoyongzhang/android-PullRefreshLayout'
 def gitUrl = 'https://github.com/baoyongzhang/android-PullRefreshLayout.git'
-group = "com.baoyz.pullrefreshlayout"
+
+group = "com.github.rprunskas"
+
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
