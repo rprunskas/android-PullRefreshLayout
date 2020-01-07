@@ -320,18 +320,23 @@ public class PullRefreshLayout extends ViewGroup {
                     }
                     return false;
                 }
-                final int pointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
-                final float y = MotionEventCompat.getY(ev, pointerIndex);
-                final float overscrollTop = (y - mInitialMotionY) * DRAG_RATE;
-                mIsBeingDragged = false;
-                if (overscrollTop > mTotalDragDistance) {
-                    setRefreshing(true, true);
+
+                final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+                if (pointerIndex > -1 && pointerIndex <= ev.getPointerCount() - 1) {
+                    final float y = ev.getY(pointerIndex);
+                    final float overscrollTop = (y - mInitialMotionY) * DRAG_RATE;
+                    mIsBeingDragged = false;
+                    if (overscrollTop > mTotalDragDistance) {
+                        setRefreshing(true, true);
+                    } else {
+                        mRefreshing = false;
+                        animateOffsetToStartPosition();
+                    }
+                    mActivePointerId = INVALID_POINTER;
+                    return false;
                 } else {
-                    mRefreshing = false;
-                    animateOffsetToStartPosition();
+                    return false;
                 }
-                mActivePointerId = INVALID_POINTER;
-                return false;
             }
         }
 
